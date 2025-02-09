@@ -5,7 +5,7 @@
 export async function fetchRandomQuote(options = {}) {
     const { tags = 'motivational', limit = 1, minLength = 0, maxLength = 0 } = options;
 
-    const baseUrl = 'http://api.quotable.io/quotes/random';
+    const baseUrl = 'https://api.quotable.io/quotes/random';
     const url = new URL(baseUrl);
     
     url.searchParams.append('tags', tags);
