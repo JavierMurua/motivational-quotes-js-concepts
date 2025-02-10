@@ -8,6 +8,9 @@
 The **Motivational Quote Generator** is a simple yet powerful web application that fetches and displays motivational quotes at the click of a button. This project was built to **exemplify JavaScript concepts** such as DOM manipulation, ES6+ features, and more.
 
 ## 🚀 Live Demo
+
+![Preview](./assets/preview.png)
+
 🔗 [Try it here on GitHub Pages](https://yourusername.github.io/motivational-quote-generator/)
 
 ## ✨ Features
@@ -148,7 +151,7 @@ const response = await fetch('quotes.json');
 const allQuotes = await response.json();
 ```
 
-## 💄 Folder Structure
+## 🗂️ Folder Structure
 ```
 /motivational-quote-generator
 │── /assets
@@ -165,10 +168,10 @@ const allQuotes = await response.json();
 │── README.md              # Project documentation
 ```
 
-## 🐝 Why Switch to a Local JSON File?
+## ❓ Why Switch to a Local JSON File?
 Initially, the project used the **Quotable API** to fetch quotes dynamically. However, due to **SSL certificate issues**, the API was no longer reliable. To ensure the application remains functional, all quotes are now stored in a **local JSON file (quotes.json)**, eliminating any external dependencies.
 
-## 🐝 Acknowledgments
+## 🎉 Acknowledgments
 - **[Icons8](https://icons8.com/)** – For the favicon icon.
 
 ---
