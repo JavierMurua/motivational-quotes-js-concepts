@@ -1,40 +1,58 @@
-// =====================================================
-// JavaScript Functions: Creating an asynchronous function with default parameters, 
-// returning values, using shorthand property names, and destructuring.
-// =====================================================
 export async function fetchRandomQuote(options = {}) {
-    const { tags = 'motivational', limit = 1, minLength = 0, maxLength = 0 } = options;
+    const { tags = '', limit = 1 } = options;
 
-    const baseUrl = 'https://api.quotable.io/quotes/random';
-    const url = new URL(baseUrl);
-    
-    url.searchParams.append('tags', tags);
-    url.searchParams.append('limit', limit);
-    if (minLength) url.searchParams.append('minLength', minLength);
-    if (maxLength) url.searchParams.append('maxLength', maxLength);
-
-    // =====================================================
-    // Fetch API, Promises, and Async/Await: Using async/await to handle asynchronous HTTP requests.
-    // =====================================================
     try {
-        const response = await fetch(url);
+        console.log("📥 Loading quotes from quotes.json...");
+
+        // Load the JSON file
+        const response = await fetch('quotes.json');
         if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.status}`);
-        }
-        const data = await response.json();
-
-        if (data.length === 0) {
-            throw new Error("La API no devolvió resultados.");
+            throw new Error(`Error loading quotes: ${response.status}`);
         }
 
-        console.log('Respuesta completa de la API:', data);
+        const allQuotes = await response.json();
+        console.log(`✅ Quotes loaded: ${allQuotes.length}`);
 
-    // =====================================================
-    // Returning values: Using bracket notation to access object properties.
-    // =====================================================
-    return `${data[0].content}\n--- ${data[0].author}`;
+        // Convert selected tags into an array and lowercase them
+        const selectedTags = tags ? tags.split(',').map(tag => tag.toLowerCase()) : [];
+        console.log("🎯 Selected tags:", selectedTags);
+
+        // Filter quotes by tags
+        let filteredQuotes = allQuotes;
+
+        if (selectedTags.length > 0) {
+            filteredQuotes = allQuotes.filter(quote => {
+                // Ensure `quote.tags` is an array and convert it to lowercase
+                if (!Array.isArray(quote.tags)) {
+                    console.warn(`⚠ Warning: The quote "${quote.content}" does not have tags as an array.`);
+                    return false;
+                }
+
+                // Convert the quote's tags to lowercase for correct comparison
+                const lowerCaseTags = quote.tags.map(tag => tag.toLowerCase());
+
+                // Check if the quote contains **at least all** selected tags (it can have more)
+                return selectedTags.every(tag => lowerCaseTags.includes(tag));
+            });
+        }
+
+        console.log(`📊 Filtered quotes: ${filteredQuotes.length}`);
+
+        // If no matching quotes are found, display an error message
+        if (filteredQuotes.length === 0) {
+            console.warn("⚠ No quotes available for the selected tags.");
+            return "No quotes available for the selected tags.";
+        }
+
+        // Correctly select a random quote
+        const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
+        const randomQuote = filteredQuotes[randomIndex];
+
+        console.log("🎲 Selected quote:", randomQuote);
+
+        return `${randomQuote.content}\n--- ${randomQuote.author}`;
     } catch (error) {
-        console.error(error.message);
-        return "No se pudo obtener una frase motivacional.";
+        console.error("❌ Error in fetchRandomQuote:", error.message);
+        return "Could not retrieve a quote.";
     }
 }
