@@ -1,7 +1,7 @@
 // =====================================================
 // Ecmascript modules: import.
 // =====================================================
-import { fetchRandomQuote } from './api.js';
+import { fetchRandomQuote } from './quotes.js';
 import { renderTagCheckboxes, getSelectedTags } from './tags.js';
 import { setupBackgroundUpdater } from './background.js';
 
