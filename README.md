@@ -133,7 +133,7 @@ const newTagColors = { ...tagColors, newTag: '#123456' };
 ### **11. Módulos de ECMAScript**
 **Ejemplo:** Importación de funciones desde otro archivo.
 ```js
-import { fetchRandomQuote } from './api.js';
+import { fetchRandomQuote } from './quotes.js';
 ```
 
 ### **12. Optional Chaining**
