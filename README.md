@@ -11,7 +11,7 @@ The **Motivational Quote Generator** is a simple yet powerful web application th
 
 ![Preview](./assets/preview.png)
 
-🔗 [Try it here on GitHub Pages](https://JavierMurua.github.io/motivational-quote-generator/)
+🔗 [Try it here on GitHub Pages](https://javiermurua.github.io/motivational-quotes-js-concepts/)
 
 ## ✨ Features
 - 🎯 Fetches **random motivational quotes** from a **local JSON file**.
